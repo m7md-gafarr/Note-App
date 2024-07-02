@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/screen/AddAndEditNote.dart';
+import 'package:note_taking_app/screen/Home.dart';
 import 'package:note_taking_app/screen/Intro.dart';
 
 void main() {
@@ -13,6 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         "intro": (context) => const IntroPage(),
+        "home": (context) => const HomePage(),
+        "note": (context) => const AddAndEditNotePage(),
       },
       debugShowCheckedModeBanner: false,
       home: const IntroPage(),
