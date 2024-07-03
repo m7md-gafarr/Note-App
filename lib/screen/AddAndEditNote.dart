@@ -46,7 +46,9 @@ class AddAndEditNotePage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "delete");
+            },
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(side: BorderSide(color: Colors.black)),
               fixedSize: const Size(30, 30),
