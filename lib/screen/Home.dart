@@ -16,10 +16,6 @@ class HomePage extends StatelessWidget {
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             const SliverAppBar(
               toolbarHeight: 80,
-              floating: true,
-              snap: true,
-              pinned: false,
-              stretch: true,
               automaticallyImplyLeading: false,
               actions: [
                 Padding(

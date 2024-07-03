@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:note_taking_app/const.dart';
 
@@ -62,12 +63,12 @@ class AddAndEditNotePage extends StatelessWidget {
           ),
         ],
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              TextField(
+              const TextField(
                 style: TextStyle(
                   fontFamily: "font1",
                   color: Colors.black,
@@ -83,7 +84,7 @@ class AddAndEditNotePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Saturday, 4th of March",
@@ -94,7 +95,7 @@ class AddAndEditNotePage extends StatelessWidget {
                   ),
                 ),
               ),
-              TextField(
+              const TextField(
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 scrollPhysics: NeverScrollableScrollPhysics(),
@@ -105,7 +106,7 @@ class AddAndEditNotePage extends StatelessWidget {
                 ),
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "Content",
+                  hintText: "Enter note",
                   hintStyle: TextStyle(
                     fontFamily: "font2",
                     color: Colors.black,
@@ -113,10 +114,56 @@ class AddAndEditNotePage extends StatelessWidget {
                   ),
                 ),
               ),
+              const Divider(
+                color: Colors.black,
+                height: 10,
+                thickness: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _Color(
+                    color: const Color(0xffb0e9ca),
+                    onPressed: () {},
+                  ),
+                  _Color(
+                    color: const Color(0xffEED3D9),
+                    onPressed: () {},
+                  ),
+                  _Color(
+                    color: const Color(0xff81A263),
+                    onPressed: () {},
+                  ),
+                  _Color(
+                    color: const Color(0xffEEEEEE),
+                    onPressed: () {},
+                  ),
+                  _Color(
+                    color: const Color(0xffB5C0D0),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              const Divider(
+                color: Colors.black,
+                height: 10,
+                thickness: 1,
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget _Color({required Color color, required void Function() onPressed}) {
+  return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: const CircleBorder(),
+        fixedSize: const Size(30, 30),
+        backgroundColor: color,
+      ),
+      child: const Text(""));
 }
