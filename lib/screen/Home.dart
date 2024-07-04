@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
         surfaceTintColor: Colors.white,
         toolbarHeight: 80,
         automaticallyImplyLeading: false,
-        actions: const [
-          Padding(
+        actions: [
+          const Padding(
             padding: EdgeInsets.only(left: 15.0),
             child: SizedBox(
               width: 120,
@@ -91,13 +91,29 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
-          Padding(
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(side: BorderSide(color: Colors.black)),
+              fixedSize: const Size(30, 30),
+              backgroundColor: Colors.white,
+            ),
+            child: const Icon(
+              Iconsax.moon,
+              color: Colors.black,
+              size: 18,
+            ),
+          ),
+          const Padding(
             padding: EdgeInsets.only(right: 15.0),
             child: CircleAvatar(
-                backgroundImage: AssetImage("assets/image/avatar.png")),
+                maxRadius: 21,
+                backgroundImage: AssetImage(
+                  "assets/image/avatar.png",
+                )),
           )
         ],
       ),
