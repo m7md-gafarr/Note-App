@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:note_taking_app/widget/history.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:iconsax/iconsax.dart';
+import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
+import 'package:note_taking_app/model/NoteModel.dart';
+import 'package:note_taking_app/screen/EditNote.dart';
+import 'package:note_taking_app/widget/Note.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Notemodel? model;
+  @override
+  void initState() {
+    BlocProvider.of<ViewNoteCubit>(context).ViewNote();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,70 +115,44 @@ class HomePage extends StatelessWidget {
                 //   ],
                 // ),
                 Expanded(
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverWovenGridDelegate.count(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 1,
-                      crossAxisSpacing: 1,
-                      pattern: [
-                        const WovenGridTile(1),
-                        const WovenGridTile(
-                          5 / 7,
-                          crossAxisRatio: .9,
-                          alignment: AlignmentDirectional.centerEnd,
-                        ),
-                      ],
-                    ),
-                    itemBuilder: (context, index) => Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xffb0e9ca),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "The lost song",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontFamily: "font2",
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: SizedBox(
-                                width: 50,
-                                child: Divider(
-                                  color: Colors.black,
-                                  height: 10,
-                                  thickness: .6,
-                                ),
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(
-                                "I had a plan, but never finished it, and I've been searching for the thought and I've been searching in a haze the  and I've been searching in a haze bbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-                                style: TextStyle(
-                                  fontFamily: "font2",
-                                  fontSize: 14,
-                                ),
-                                overflow: TextOverflow.fade,
-                              ),
+                  child: BlocConsumer<ViewNoteCubit, ViewNoteState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      List<Notemodel> list =
+                          BlocProvider.of<ViewNoteCubit>(context).list!;
+                      return GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverWovenGridDelegate.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 1,
+                          crossAxisSpacing: 1,
+                          pattern: [
+                            const WovenGridTile(1),
+                            const WovenGridTile(
+                              5 / 7,
+                              crossAxisRatio: .9,
+                              alignment: AlignmentDirectional.centerEnd,
                             ),
                           ],
                         ),
-                      ),
-                    ),
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => NoteWidget(
+                          model: list[index],
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditnotePage(
+                                    title: list[index].Title,
+                                    subtitle: list[index].SubTitle,
+                                    Datetime: list[index].DataTime,
+                                    color: list[index].color,
+                                  ),
+                                ));
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -172,7 +162,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "note");
+          Navigator.pushNamed(context, "add");
         },
         elevation: 0,
         shape: const CircleBorder(),

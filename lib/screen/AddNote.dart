@@ -6,22 +6,23 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_taking_app/Cubit/Add%20Note/add_note_cubit.dart';
-import 'package:note_taking_app/const.dart';
+import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
+import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 
-class AddAndEditNotePage extends StatefulWidget {
-  const AddAndEditNotePage({super.key});
+class AddNotePage extends StatefulWidget {
+  const AddNotePage({super.key});
 
   @override
-  State<AddAndEditNotePage> createState() => _AddAndEditNotePageState();
+  State<AddNotePage> createState() => _AddAndEditNotePageState();
 }
 
-class _AddAndEditNotePageState extends State<AddAndEditNotePage> {
+class _AddAndEditNotePageState extends State<AddNotePage> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   GlobalKey<FormState> fromkey = GlobalKey();
   String? title, subtitle;
   var Datetime = DateFormat('EEEE,MMM d,yyyy').format(DateTime.now());
-  Color color = Colors.white;
+  Color color = const Color(0xffffffff);
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +63,11 @@ class _AddAndEditNotePageState extends State<AddAndEditNotePage> {
                         notemodel: Notemodel(
                           Title: title!,
                           SubTitle: subtitle!,
-                          color: color.toString(),
+                          color: color.value,
                           DataTime: Datetime,
                         ),
                       );
+                      BlocProvider.of<ViewNoteCubit>(context).ViewNote();
                     } else {
                       autovalidateMode = AutovalidateMode.always;
                       setState(() {});
@@ -125,7 +127,7 @@ class _AddAndEditNotePageState extends State<AddAndEditNotePage> {
                     children: [
                       TextFormField(
                         autofocus: true,
-                        onChanged: (value) {
+                        onSaved: (value) {
                           title = value;
                         },
                         validator: (value) {
@@ -162,7 +164,7 @@ class _AddAndEditNotePageState extends State<AddAndEditNotePage> {
                         ),
                       ),
                       TextFormField(
-                        onChanged: (value) {
+                        onSaved: (value) {
                           subtitle = value;
                         },
                         validator: (value) {

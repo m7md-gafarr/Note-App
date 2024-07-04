@@ -4,22 +4,22 @@ import 'package:meta/meta.dart';
 import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 
-part 'add_note_state.dart';
+part 'edit_note_state.dart';
 
-class AddNoteCubit extends Cubit<AddNoteState> {
-  AddNoteCubit() : super(AddNoteInitial());
+class EditNoteCubit extends Cubit<EditNoteState> {
+  EditNoteCubit() : super(EditNoteInitial());
 
   AddNote({required Notemodel notemodel}) async {
-    emit(AddNoteLoading());
+    emit(EditNoteLoading());
 
     try {
       //
       var box = Hive.box<Notemodel>(hiveBox);
       await box.add(notemodel);
-      emit(AddNoteSuccess());
+      emit(EditNoteSuccess());
       //
     } catch (e) {
-      emit(AddNoteFailear(e.toString()));
+      emit(EditNoteFailear(e.toString()));
     }
   }
 }

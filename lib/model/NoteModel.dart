@@ -11,7 +11,7 @@ class Notemodel extends HiveObject {
   @HiveField(1)
   final String SubTitle;
   @HiveField(2)
-  final String color;
+  final int color;
   @HiveField(3)
   final String DataTime;
   Notemodel({

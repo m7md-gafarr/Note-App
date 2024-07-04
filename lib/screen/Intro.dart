@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:note_taking_app/const.dart';
+import 'package:note_taking_app/const/const.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:note_taking_app/const.dart';
+import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 
 class DeleteNotePage extends StatelessWidget {
