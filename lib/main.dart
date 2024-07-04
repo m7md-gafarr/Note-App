@@ -12,12 +12,16 @@ import 'package:note_taking_app/screen/EditNote.dart';
 import 'package:note_taking_app/screen/Home.dart';
 import 'package:note_taking_app/screen/Intro.dart';
 import 'package:note_taking_app/screen/deletNote.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+int? _seen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(NotemodelAdapter());
   await Hive.openBox<Notemodel>(hiveBox);
+  SharedPreferences Prefs = await SharedPreferences.getInstance();
+  _seen = Prefs.getInt('seen');
 
   runApp(const MyApp());
 }
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
           "delete": (context) => DeleteNotePage()
         },
         debugShowCheckedModeBanner: false,
-        home: const IntroPage(),
+        home: _seen != 0 ? const IntroPage() : const HomePage(),
       ),
     );
   }

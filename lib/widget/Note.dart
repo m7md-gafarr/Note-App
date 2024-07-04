@@ -46,16 +46,14 @@ class NoteWidget extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Flexible(
-                  child: Text(
-                    softWrap: true,
-                    model.SubTitle,
-                    style: const TextStyle(
-                      fontFamily: "font2",
-                      fontSize: 14,
-                    ),
-                    overflow: TextOverflow.fade,
+                child: Text(
+                  softWrap: true,
+                  model.SubTitle,
+                  style: const TextStyle(
+                    fontFamily: "font2",
+                    fontSize: 14,
                   ),
+                  overflow: TextOverflow.fade,
                 ),
               ),
             ],

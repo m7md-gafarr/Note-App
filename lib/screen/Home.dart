@@ -7,6 +7,7 @@ import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 import 'package:note_taking_app/screen/EditNote.dart';
 import 'package:note_taking_app/widget/Note.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -3,9 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:note_taking_app/const/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
+  oneTimeIntro() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setInt("seen", 0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class IntroPage extends StatelessWidget {
                 const Spacer(flex: 2),
                 ElevatedButton(
                   onPressed: () {
+                    oneTimeIntro();
                     Navigator.pushNamed(context, "home");
                   },
                   style: ElevatedButton.styleFrom(
@@ -64,5 +70,14 @@ class IntroPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class IntroWidget extends StatelessWidget {
+  const IntroWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
