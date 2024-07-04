@@ -9,13 +9,13 @@ part 'edit_note_state.dart';
 class EditNoteCubit extends Cubit<EditNoteState> {
   EditNoteCubit() : super(EditNoteInitial());
 
-  AddNote({required Notemodel notemodel}) async {
+  EditNote({required Notemodel notemodel, required int index}) async {
     emit(EditNoteLoading());
 
     try {
       //
       var box = Hive.box<Notemodel>(hiveBox);
-      await box.add(notemodel);
+      await box.putAt(index, notemodel);
       emit(EditNoteSuccess());
       //
     } catch (e) {

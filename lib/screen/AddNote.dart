@@ -22,7 +22,7 @@ class _AddAndEditNotePageState extends State<AddNotePage> {
   GlobalKey<FormState> fromkey = GlobalKey();
   String? title, subtitle;
   var Datetime = DateFormat('EEEE,MMM d,yyyy').format(DateTime.now());
-  Color color = const Color(0xffffffff);
+  Color color = const Color(0xffF5F5F5);
 
   @override
   Widget build(BuildContext context) {
@@ -81,22 +81,6 @@ class _AddAndEditNotePageState extends State<AddNotePage> {
                   ),
                   child: const Icon(
                     Iconsax.save_2,
-                    color: Colors.black,
-                    size: 18,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "delete");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(
-                        side: BorderSide(color: Colors.black)),
-                    fixedSize: const Size(30, 30),
-                    backgroundColor: color,
-                  ),
-                  child: const Icon(
-                    Iconsax.note_remove,
                     color: Colors.black,
                     size: 18,
                   ),
@@ -229,10 +213,10 @@ class _AddAndEditNotePageState extends State<AddNotePage> {
                             },
                           ),
                           _Color(
-                            color: const Color(0xffEEEEEE),
+                            color: const Color(0xffCDF0EA),
                             onPressed: () {
                               setState(() {
-                                color = const Color(0xffEEEEEE);
+                                color = const Color(0xffCDF0EA);
                               });
                             },
                           ),

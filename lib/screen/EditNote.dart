@@ -6,20 +6,25 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_taking_app/Cubit/Add%20Note/add_note_cubit.dart';
+import 'package:note_taking_app/Cubit/Edit%20Note/edit_note_cubit.dart';
+import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 
 import 'package:note_taking_app/const/const.dart';
+import 'package:note_taking_app/model/NoteModel.dart';
+import 'package:note_taking_app/screen/deletNote.dart';
 
 class EditnotePage extends StatefulWidget {
-  EditnotePage({
-    super.key,
-    this.title,
-    this.subtitle,
-    this.color,
-    this.Datetime,
-  });
+  EditnotePage(
+      {super.key,
+      this.title,
+      this.subtitle,
+      this.color,
+      this.Datetime,
+      this.index});
   String? title, subtitle;
   var Datetime;
   int? color;
+  int? index;
   @override
   State<EditnotePage> createState() => _AddAndEditNotePageState();
 }
@@ -62,6 +67,16 @@ class _AddAndEditNotePageState extends State<EditnotePage> {
                   onPressed: () {
                     if (fromkey.currentState!.validate()) {
                       fromkey.currentState!.save();
+
+                      BlocProvider.of<EditNoteCubit>(context).EditNote(
+                        notemodel: Notemodel(
+                            Title: widget.title!,
+                            SubTitle: widget.subtitle!,
+                            color: widget.color!,
+                            DataTime: widget.Datetime),
+                        index: widget.index!,
+                      );
+                      BlocProvider.of<ViewNoteCubit>(context).ViewNote();
                     } else {
                       autovalidateMode = AutovalidateMode.always;
                       setState(() {});
@@ -81,7 +96,13 @@ class _AddAndEditNotePageState extends State<EditnotePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "delete");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DeleteNotePage(
+                            index: widget.index,
+                          ),
+                        ));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(
@@ -100,11 +121,9 @@ class _AddAndEditNotePageState extends State<EditnotePage> {
           ),
         ],
       ),
-      body: BlocConsumer<AddNoteCubit, AddNoteState>(
+      body: BlocConsumer<EditNoteCubit, EditNoteState>(
         listener: (context, state) {
-          if (state is AddNoteFailear) {
-            SnackBar(content: Text(state.e));
-          } else if (state is AddNoteSuccess) {
+          if (state is EditNoteSuccess) {
             Navigator.pop(context);
           }
         },

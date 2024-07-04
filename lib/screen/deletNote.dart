@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 
 class DeleteNotePage extends StatelessWidget {
-  const DeleteNotePage({super.key});
-
+  DeleteNotePage({super.key, this.index});
+  int? index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +74,12 @@ class DeleteNotePage extends StatelessWidget {
                   ),
                   const Spacer(flex: 2),
                   ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        await Hive.box<Notemodel>(hiveBox).deleteAt(index!);
+                        BlocProvider.of<ViewNoteCubit>(context).ViewNote();
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(double.maxFinite, 60),
                         backgroundColor: const Color(0xffffe3e3),

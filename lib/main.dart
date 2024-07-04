@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:note_taking_app/Cubit/Add%20Note/add_note_cubit.dart';
+import 'package:note_taking_app/Cubit/Edit%20Note/edit_note_cubit.dart';
 import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ViewNoteCubit(),
         ),
+        BlocProvider(
+          create: (context) => EditNoteCubit(),
+        ),
       ],
       child: MaterialApp(
         routes: {
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
           "home": (context) => const HomePage(),
           "add": (context) => const AddNotePage(),
           "edit": (context) => EditnotePage(),
-          "delete": (context) => const DeleteNotePage()
+          "delete": (context) => DeleteNotePage()
         },
         debugShowCheckedModeBanner: false,
         home: const IntroPage(),
