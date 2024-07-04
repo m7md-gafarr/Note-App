@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 import 'package:note_taking_app/screen/EditNote.dart';
+import 'package:note_taking_app/widget/NoNote.dart';
 import 'package:note_taking_app/widget/Note.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -121,39 +122,41 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
                     List<Notemodel> list =
                         BlocProvider.of<ViewNoteCubit>(context).list!;
-                    return GridView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate: SliverWovenGridDelegate.count(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 1,
-                        crossAxisSpacing: 1,
-                        pattern: [
-                          const WovenGridTile(1),
-                          const WovenGridTile(
-                            5 / 7,
-                            crossAxisRatio: .9,
-                            alignment: AlignmentDirectional.centerEnd,
-                          ),
-                        ],
-                      ),
-                      itemCount: list.length,
-                      itemBuilder: (context, index) => NoteWidget(
-                        model: list[index],
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditnotePage(
-                                  title: list[index].Title,
-                                  subtitle: list[index].SubTitle,
-                                  Datetime: list[index].DataTime,
-                                  color: list[index].color,
-                                  index: index,
+                    return list.isEmpty
+                        ? const Nonote()
+                        : GridView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            gridDelegate: SliverWovenGridDelegate.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1,
+                              crossAxisSpacing: 1,
+                              pattern: [
+                                const WovenGridTile(1),
+                                const WovenGridTile(
+                                  5 / 7,
+                                  crossAxisRatio: .9,
+                                  alignment: AlignmentDirectional.centerEnd,
                                 ),
-                              ));
-                        },
-                      ),
-                    );
+                              ],
+                            ),
+                            itemCount: list.length,
+                            itemBuilder: (context, index) => NoteWidget(
+                              model: list[index],
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditnotePage(
+                                        title: list[index].Title,
+                                        subtitle: list[index].SubTitle,
+                                        Datetime: list[index].DataTime,
+                                        color: list[index].color,
+                                        index: index,
+                                      ),
+                                    ));
+                              },
+                            ),
+                          );
                   },
                 ),
               ),
