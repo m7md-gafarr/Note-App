@@ -46,13 +46,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           "intro": (context) => const IntroPage(),
-          "home": (context) => const HomePage(),
+          "home": (context) => HomePage(),
           "add": (context) => const AddNotePage(),
           "edit": (context) => EditnotePage(),
           "delete": (context) => DeleteNotePage()
         },
         debugShowCheckedModeBanner: false,
-        home: _seen != 0 ? const IntroPage() : const HomePage(),
+        initialRoute: _seen != 0 ? "intro" : "home",
+        // home: const IntroPage(),
       ),
     );
   }

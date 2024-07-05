@@ -1,3 +1,6 @@
 {
-    "cmake.sourceDirectory": "E:/Flutter/note_taking_app/linux"
+    "cmake.sourceDirectory": "E:/Flutter/note_taking_app/linux",
+    "cSpell.words": [
+        "Avatarmodel"
+    ]
 }

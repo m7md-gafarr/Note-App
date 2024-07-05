@@ -11,17 +11,19 @@ import 'package:note_taking_app/widget/Note.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key, this.path});
+  String? path;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   Notemodel? model;
+
   @override
   void initState() {
     BlocProvider.of<ViewNoteCubit>(context).ViewNote();
+
     super.initState();
   }
 
@@ -39,13 +41,13 @@ class _HomePageState extends State<HomePage> {
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
             child: SizedBox(
-              width: 120,
+              width: 180,
               child: Column(
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "3''-Note",
+                      "My Notes",
                       style: TextStyle(
                         fontFamily: "font1",
                         fontSize: 30,
@@ -107,13 +109,19 @@ class _HomePageState extends State<HomePage> {
               size: 18,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 15.0),
-            child: CircleAvatar(
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "intro");
+              },
+              child: CircleAvatar(
                 maxRadius: 21,
                 backgroundImage: AssetImage(
-                  "assets/image/avatar.png",
-                )),
+                  widget.path ?? "assets/image/avatar/Number=74.png",
+                ),
+              ),
+            ),
           )
         ],
       ),

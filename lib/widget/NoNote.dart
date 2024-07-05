@@ -7,34 +7,32 @@ class Nonote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Lottie.asset(
-          "assets/animation/note.json",
-        ),
-        const Spacer(
-          flex: 10,
-        ),
-        const Row(
-          children: [
-            Text(
-              "Add your first note",
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "font1",
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(Iconsax.arrow_right_1),
-          ],
-        ),
-        const Spacer(
-          flex: 1,
-        ),
-      ],
+    return Center(
+      child: Lottie.asset(
+        "assets/animation/note.json",
+      ),
     );
   }
 }
+ // const Spacer(
+        //   flex: 10,
+        // ),
+        // const Row(
+        //   children: [
+        //     Text(
+        //       "Add your first note",
+        //       style: TextStyle(
+        //         color: Colors.black,
+        //         fontFamily: "font1",
+        //         fontSize: 22,
+        //       ),
+        //     ),
+        //     SizedBox(
+        //       width: 10,
+        //     ),
+        //     Icon(Iconsax.arrow_right_1),
+        //   ],
+        // ),
+        // const Spacer(
+        //   flex: 1,
+        // ),
