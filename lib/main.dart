@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:note_taking_app/Cubit/Add%20Note/add_note_cubit.dart';
+import 'package:note_taking_app/Cubit/Edit%20Avatar/edit_avatar_cubit.dart';
 import 'package:note_taking_app/Cubit/Edit%20Note/edit_note_cubit.dart';
 import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/const/const.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 import 'package:note_taking_app/screen/AddNote.dart';
+import 'package:note_taking_app/screen/EditAvatar.dart';
 import 'package:note_taking_app/screen/EditNote.dart';
 import 'package:note_taking_app/screen/Home.dart';
 import 'package:note_taking_app/screen/Intro.dart';
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => EditNoteCubit(),
         ),
+        BlocProvider(
+          create: (context) => EditAvatarCubit(),
+        ),
       ],
       child: MaterialApp(
         routes: {
@@ -49,7 +54,8 @@ class MyApp extends StatelessWidget {
           "home": (context) => HomePage(),
           "add": (context) => const AddNotePage(),
           "edit": (context) => EditnotePage(),
-          "delete": (context) => DeleteNotePage()
+          "delete": (context) => DeleteNotePage(),
+          "editavatar": (context) => const EditavatarPage()
         },
         debugShowCheckedModeBanner: false,
         initialRoute: _seen != 0 ? "intro" : "home",

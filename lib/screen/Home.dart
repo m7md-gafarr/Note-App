@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:note_taking_app/Cubit/Edit%20Avatar/edit_avatar_cubit.dart';
 import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
 import 'package:note_taking_app/model/NoteModel.dart';
 import 'package:note_taking_app/screen/EditNote.dart';
@@ -11,8 +12,8 @@ import 'package:note_taking_app/widget/Note.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key, this.path});
-  String? path;
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -109,19 +110,25 @@ class _HomePageState extends State<HomePage> {
               size: 18,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, "intro");
-              },
-              child: CircleAvatar(
-                maxRadius: 21,
-                backgroundImage: AssetImage(
-                  widget.path ?? "assets/image/avatar/Number=74.png",
+          BlocConsumer<EditAvatarCubit, EditAvatarState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "editavatar");
+                  },
+                  child: CircleAvatar(
+                    maxRadius: 21,
+                    backgroundImage: AssetImage(
+                      BlocProvider.of<EditAvatarCubit>(context).path ??
+                          "assets/image/avatar/Number=74.png",
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           )
         ],
       ),
@@ -130,16 +137,6 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              // const Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     HistoryWidget(),
-              //     HistoryWidget(),
-              //     HistoryWidget(),
-              //     HistoryWidget(),
-              //     HistoryWidget(),
-              //   ],
-              // ),
               Expanded(
                 child: BlocConsumer<ViewNoteCubit, ViewNoteState>(
                   listener: (context, state) {},
