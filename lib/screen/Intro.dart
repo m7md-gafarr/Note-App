@@ -166,6 +166,7 @@ class _IntroPageState extends State<IntroPage> {
               txt2: "Get Start",
               onPressed: () {
                 oneTimeIntro();
+
                 Navigator.pushNamed(context, "home");
               },
               widget: [
@@ -179,8 +180,8 @@ class _IntroPageState extends State<IntroPage> {
                           i.select = false;
                         }
                         i.select = !i.select;
-
-                        BlocProvider.of<EditAvatarCubit>(context).path = i.Path;
+                        BlocProvider.of<EditAvatarCubit>(context)
+                            .EditAndAddAvatar(i.Path);
                       });
                     },
                   ),

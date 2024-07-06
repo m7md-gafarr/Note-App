@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     BlocProvider.of<ViewNoteCubit>(context).ViewNote();
-
+    BlocProvider.of<EditAvatarCubit>(context).ShowAvatar();
     super.initState();
   }
 
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
             flex: 1,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {},
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(side: BorderSide(color: Colors.black)),
               fixedSize: const Size(30, 30),
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   child: CircleAvatar(
                     maxRadius: 21,
                     backgroundImage: AssetImage(
-                      BlocProvider.of<EditAvatarCubit>(context).path ??
+                      BlocProvider.of<EditAvatarCubit>(context).Path ??
                           "assets/image/avatar/Number=74.png",
                     ),
                   ),

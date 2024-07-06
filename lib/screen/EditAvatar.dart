@@ -14,8 +14,6 @@ class EditavatarPage extends StatefulWidget {
 }
 
 class _EditavatarPageState extends State<EditavatarPage> {
-  String? path;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,9 @@ class _EditavatarPageState extends State<EditavatarPage> {
           txt2: "Save Edit",
           onPressed: () {
             Navigator.pop(context);
-            BlocProvider.of<EditAvatarCubit>(context).EditAvatarFun();
+            BlocProvider.of<EditAvatarCubit>(context).ShowAvatar();
+            // BlocProvider.of<EditAvatarCubit>(context).EditAndAddAvatar(
+            //     BlocProvider.of<EditAvatarCubit>(context).Path!);
           },
           widget: [
             for (var i in avatarlist)
@@ -38,8 +38,9 @@ class _EditavatarPageState extends State<EditavatarPage> {
                       i.select = false;
                     }
                     i.select = !i.select;
-                    path = i.Path;
-                    BlocProvider.of<EditAvatarCubit>(context).path = i.Path;
+
+                    BlocProvider.of<EditAvatarCubit>(context)
+                        .EditAndAddAvatar(i.Path);
                   });
                 },
               ),

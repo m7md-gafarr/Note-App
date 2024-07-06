@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           "intro": (context) => const IntroPage(),
-          "home": (context) => HomePage(),
+          "home": (context) => const HomePage(),
           "add": (context) => const AddNotePage(),
           "edit": (context) => EditnotePage(),
           "delete": (context) => DeleteNotePage(),
