@@ -1,65 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:note_taking_app/Cubit/Add%20Note/add_note_cubit.dart';
-import 'package:note_taking_app/Cubit/Edit%20Avatar/edit_avatar_cubit.dart';
-import 'package:note_taking_app/Cubit/Edit%20Note/edit_note_cubit.dart';
-import 'package:note_taking_app/Cubit/View%20Note/view_note_cubit.dart';
-import 'package:note_taking_app/const/const.dart';
-import 'package:note_taking_app/model/NoteModel.dart';
-import 'package:note_taking_app/screen/AddNote.dart';
-import 'package:note_taking_app/screen/EditAvatar.dart';
-import 'package:note_taking_app/screen/EditNote.dart';
-import 'package:note_taking_app/screen/Home.dart';
-import 'package:note_taking_app/screen/Intro.dart';
-import 'package:note_taking_app/screen/deletNote.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:note_taking_app/src/core/imports/custom_imports.dart';
 
-int? _seen;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(NotemodelAdapter());
-  await Hive.openBox<Notemodel>(hiveBox);
-  SharedPreferences Prefs = await SharedPreferences.getInstance();
-  _seen = Prefs.getInt('seen');
+  await Hive.openBox<Notemodel>(HiveService.NOTES_BOX);
 
-  runApp(const MyApp());
+  await SharedPreferencesService().init();
+  final _seen = await SharedPreferencesService().getIntroductionStatus();
+  runApp(MyApp(appRouter: AppRouter(), seen: _seen));
 }
 
+// Root widget of the application
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.appRouter, this.seen});
+
+  final AppRouter appRouter;
+  final bool? seen;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AddNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ViewNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => EditNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => EditAvatarCubit(),
-        ),
+        BlocProvider(create: (context) => AddNoteCubit()),
+        BlocProvider(create: (context) => ViewNoteCubit()),
+        BlocProvider(create: (context) => EditNoteCubit()),
+        BlocProvider(create: (context) => EditAvatarCubit()),
       ],
-      child: MaterialApp(
-        routes: {
-          "intro": (context) => const IntroPage(),
-          "home": (context) => const HomePage(),
-          "add": (context) => const AddNotePage(),
-          "edit": (context) => EditnotePage(),
-          "delete": (context) => DeleteNotePage(),
-          "editavatar": (context) => const EditavatarPage()
+      child: Builder(
+        builder: (context) {
+          // Initialize ScreenUtil
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+          );
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: AppRouter.generateRoute,
+            initialRoute: seen == null
+                ? AppRoutesName.homePageScreenRoute
+                : (seen!
+                    ? AppRoutesName.introPageScreenRoute
+                    : AppRoutesName.homePageScreenRoute),
+            theme: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? getThemeColorDark(context)
+                : getThemeColorLight(context),
+          );
         },
-        debugShowCheckedModeBanner: false,
-        initialRoute: _seen != 0 ? "intro" : "home",
-        // home: const IntroPage(),
       ),
     );
   }
